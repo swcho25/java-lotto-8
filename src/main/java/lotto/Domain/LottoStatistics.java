@@ -21,7 +21,9 @@ public class LottoStatistics {
             result.put(prize, result.get(prize)+1);
             totalPrize += prize.getReward();
         }
-        this.rate = Math.round((double) totalPrize / (lottos.size() * 1000) * 1000) / 10.0;
+        double totalCost = lottos.size() * 1000.0;
+        double rawRate = (totalPrize / totalCost) * 100; // 퍼센트 계산
+        this.rate = Math.round(rawRate * 10) / 10.0;     // 소수점 첫째 자리 반올림
     }
 
     private int countMatch(List<Integer> lottoNumbers, List<Integer> winningNumbers) {

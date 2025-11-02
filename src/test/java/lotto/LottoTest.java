@@ -1,12 +1,13 @@
 package lotto;
 
-import lotto.Domain.Lotto;
-import lotto.Service.Validator;
+import lotto.Domain.*;
+import lotto.Service.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class LottoTest {
     @Test
@@ -36,33 +37,33 @@ class LottoTest {
     @DisplayName("구입 금액이 양의 정수가 아니면 예외가 발생한다.")
     @Test
     void 구입금액이_음수이거나_0이면_예외가_발생한다() {
-        assertThatThrownBy(() -> Validator.validateMoney(-1000))
+        assertThatThrownBy(() -> Validator.validateMoney("-1000"))
                 .isInstanceOf(IllegalArgumentException.class);
-        assertThatThrownBy(() -> Validator.validateMoney(0))
+        assertThatThrownBy(() -> Validator.validateMoney("0"))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
     @DisplayName("구입 금액이 1000으로 나누어 떨어지지 않으면 예외가 발생한다.")
     @Test
     void 구입금액이_1000원으로_나누어떨어지지_않으면_예외가_발생한다() {
-        assertThatThrownBy(() -> Validator.validateMoney(1500))
+        assertThatThrownBy(() -> Validator.validateMoney("1500"))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
     @DisplayName("보너스 번호가 1~45 범위를 벗어나면 예외가 발생한다.")
     @Test
     void 보너스번호가_범위를_벗어나면_예외가_발생한다() {
-        assertThatThrownBy(() -> Validator.validateBonusNumber(0, List.of(1, 2, 3, 4, 5, 6)))
+        assertThatThrownBy(() -> Validator.validateBonusNumber("0", List.of(1, 2, 3, 4, 5, 6)))
                 .isInstanceOf(IllegalArgumentException.class);
 
-        assertThatThrownBy(() -> Validator.validateBonusNumber(46, List.of(1, 2, 3, 4, 5, 6)))
+        assertThatThrownBy(() -> Validator.validateBonusNumber("46", List.of(1, 2, 3, 4, 5, 6)))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
     @DisplayName("보너스 번호가 당첨 번호와 중복되면 예외가 발생한다.")
     @Test
     void 보너스번호가_당첨번호와_중복되면_예외가_발생한다() {
-        assertThatThrownBy(() -> Validator.validateBonusNumber(5, List.of(1,2,3,4,5,6)))
+        assertThatThrownBy(() -> Validator.validateBonusNumber("5", List.of(1,2,3,4,5,6)))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
@@ -76,7 +77,18 @@ class LottoTest {
     @DisplayName("총 상금과 구입 금액을 기반으로 수익률을 계산한다.")
     @Test
     void 수익률을_정확히_계산한다() {
-        double profitRate = Lotto.calculateRate(5000, 8000);
-        assertThat(profitRate).isEqualTo(62.5);
+        List<Lotto> lottos = List.of(
+                new Lotto(List.of(8, 21, 23, 41, 42, 43)),
+                new Lotto(List.of(3, 5, 11, 16, 32, 38)),
+                new Lotto(List.of(7, 11, 16, 35, 36, 44)),
+                new Lotto(List.of(1, 8, 11, 31, 41, 42)),
+                new Lotto(List.of(13, 14, 16, 38, 42, 45)),
+                new Lotto(List.of(7, 11, 30, 40, 42, 43)),
+                new Lotto(List.of(2, 13, 22, 32, 38, 45)),
+                new Lotto(List.of(1, 3, 5, 14, 22, 45))
+        );
+        WinningNumbers winningNumbers = new WinningNumbers(List.of(1, 2, 3, 4, 5, 6), 7);
+        LottoStatistics stats = new LottoStatistics(lottos, winningNumbers);
+        assertThat(stats.getRate()).isEqualTo(62.5);
     }
 }
