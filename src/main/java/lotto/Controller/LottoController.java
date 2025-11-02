@@ -5,7 +5,7 @@ import lotto.Domain.WinningNumbers;
 import lotto.Service.LottoStatistics;
 import lotto.View.InputView;
 import lotto.View.OutputView;
-
+import lotto.Service.LottoStore;
 import java.util.List;
 
 public class LottoController {

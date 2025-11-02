@@ -2,7 +2,6 @@ package lotto.View;
 
 import lotto.Domain.Lotto;
 import lotto.Service.LottoStatistics;
-
 import java.util.List;
 
 public class OutputView {

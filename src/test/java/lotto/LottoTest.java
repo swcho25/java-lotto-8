@@ -4,7 +4,6 @@ import lotto.Domain.Lotto;
 import lotto.Service.Validator;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
