@@ -2,7 +2,8 @@ package lotto.Controller;
 
 import lotto.Domain.Lotto;
 import lotto.Domain.WinningNumbers;
-import lotto.Service.LottoStatistics;
+import lotto.Domain.LottoStatistics;
+import lotto.Service.Validator;
 import lotto.View.InputView;
 import lotto.View.OutputView;
 import lotto.Service.LottoStore;

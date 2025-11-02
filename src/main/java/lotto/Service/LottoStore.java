@@ -9,7 +9,6 @@ import java.util.List;
 public class LottoStore {
 
     public static int calculateTicketCount(int money) {
-        Validator.validateMoney(money);
         return money/1000;
     }
 
