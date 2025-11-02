@@ -21,7 +21,7 @@ public class LottoController {
         outputView.startComment();
         int money = Validator.validateMoney(inputView.readInput());
         int count = LottoStore.calculateTicketCount(money);
-        outputView.CountComment(count);
+        outputView.countComment(count);
 
         List<Lotto> lottos = LottoStore.generateLottos(count);
         outputView.printLottos(lottos);
