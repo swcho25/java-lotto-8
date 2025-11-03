@@ -4,6 +4,9 @@ import java.util.List;
 import lotto.Service.Validator;
 
 public class Lotto {
+    private static final int LOTTO_NUMBER_COUNT = 6;
+    private static final String ERROR_NUMBER_COUNT = "[ERROR] 로또 번호는 6개여야 합니다.";
+
     private final List<Integer> numbers;
 
     public Lotto(List<Integer> numbers) {
@@ -12,8 +15,8 @@ public class Lotto {
     }
 
     private void validate(List<Integer> numbers) {
-        if (numbers.size() != 6) {
-            throw new IllegalArgumentException("[ERROR] 로또 번호는 6개여야 합니다.");
+        if (numbers.size() != LOTTO_NUMBER_COUNT) {
+            throw new IllegalArgumentException(ERROR_NUMBER_COUNT);
         }
 
         Validator.validateDuplicate(numbers);

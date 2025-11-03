@@ -20,19 +20,27 @@ public class LottoController {
 
     public void run() {
         outputView.startComment();
-        int money = Validator.validateMoney(inputView.readInput());
+        int money = readMoney();
         int count = LottoStore.calculateTicketCount(money);
         outputView.countComment(count);
 
         List<Lotto> lottos = LottoStore.generateLottos(count);
         outputView.printLottos(lottos);
 
+        WinningNumbers winningNumbers = readWinningNumbers();
+        LottoStatistics stats = new LottoStatistics(lottos, winningNumbers);
+        outputView.printResult(stats);
+    }
+
+    private int readMoney() {
+        String moneyInput = inputView.readInput();
+        return Validator.validateMoney(moneyInput);
+    }
+
+    private WinningNumbers readWinningNumbers() {
         List<Integer> winning = inputView.readWinningNumbers();
         String bonusInput = inputView.readInput();
         int bonus = Validator.validateBonusNumber(bonusInput, winning);
-
-        WinningNumbers winningNumbers = new WinningNumbers(winning, bonus);
-        LottoStatistics stats = new LottoStatistics(lottos, winningNumbers);
-        outputView.printResult(stats);
+        return new WinningNumbers(winning, bonus);
     }
 }

@@ -7,9 +7,13 @@ import java.util.Collections;
 import java.util.List;
 
 public class LottoStore {
+    private static final int LOTTO_PRICE = 1000;
+    private static final int LOTTO_NUMBER_COUNT = 6;
+    private static final int MIN_NUMBER = 1;
+    private static final int MAX_NUMBER = 45;
 
     public static int calculateTicketCount(int money) {
-        return money/1000;
+        return money/LOTTO_PRICE;
     }
 
     public static List<Lotto> generateLottos(int count) {
@@ -21,7 +25,7 @@ public class LottoStore {
     }
 
     private static List<Integer> generateNumbers() {
-        List<Integer> numbers = new ArrayList<>(Randoms.pickUniqueNumbersInRange(1, 45, 6));
+        List<Integer> numbers = new ArrayList<>(Randoms.pickUniqueNumbersInRange(MIN_NUMBER, MAX_NUMBER, LOTTO_NUMBER_COUNT));
         Collections.sort(numbers);
         return numbers;
     }
