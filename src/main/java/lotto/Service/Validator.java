@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.HashSet;
 
+/** 로또 관련 입력값의 유효성을 검증하는 클래스 */
 public class Validator {
     private static final int LOTTO_PRICE_UNIT = 1000;
     private static final int MIN_NUMBER = 1;
@@ -19,6 +20,13 @@ public class Validator {
     private static final String ERROR_DUPLICATE = ERROR_PREFIX + "중복된 번호가 존재합니다.";
     private static final String ERROR_RANGE = ERROR_PREFIX + "로또 번호는 1부터 45 사이여야 합니다.";
 
+    /**
+     * 구입 금액의 유효성을 검사합니다.
+     * 숫자인지 여부 / 양수 여부 / 1000의 배수 여부
+     * @param input 사용자 입력 문자열
+     * @return 정수 형태의 구입 금액
+     * @throws IllegalArgumentException 입력 값이 유효하지 않은 경우
+     */
     public static int validateMoney(String input) {
         try {
             int money = Integer.parseInt(input.trim());
@@ -30,6 +38,14 @@ public class Validator {
         }
     }
 
+    /**
+     * 보너스 번호의 유효성을 검사합니다.
+     * 숫자인지 여부 / 1~45 사이의 숫자인지 여부 / 당첨 번호와 중복되지 않는지에 대한 여부
+     * @param input 보너스 번호 입력 값
+     * @param winningNumbers 당첨 번호 리스트
+     * @return 검증된 보너스 번호
+     * @throws IllegalArgumentException 입력 값이 유효하지 않은 경우
+     */
     public static int validateBonusNumber(String input, List<Integer> winningNumbers) {
         try {
             int bonus = Integer.parseInt(input.trim());
@@ -53,6 +69,11 @@ public class Validator {
         }
     }
 
+    /**
+     * 로또 번호 중 중복이 존재하는지 검사
+     * @param numbers 로또 번호 리스트
+     * @throws IllegalArgumentException 중복된 번호가 존재할 경우
+     */
     public static void validateDuplicate(List<Integer> numbers) {
         Set<Integer> unique = new HashSet<>(numbers);
         if (unique.size() != numbers.size()) {
@@ -60,6 +81,11 @@ public class Validator {
         }
     }
 
+    /**
+     * 로또 번호가 1~45 사이의 숫자인지 검사
+     * @param numbers 로또 번호 리스트
+     * @throws IllegalArgumentException 유효 범위를 벗어난 번호가 존재할 경우
+     */
     public static void validateRange(List<Integer> numbers) {
         for (int number : numbers) {
             if (number < MIN_NUMBER || number > MAX_NUMBER) {

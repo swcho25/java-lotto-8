@@ -4,6 +4,7 @@ import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 
+/** 전체 로또 구매 결과를 기반으로 통계를 계산하는 클래스 */
 public class LottoStatistics {
     private static final int LOTTO_COST = 1000;
     private static final int PERCENTAGE = 100;
@@ -12,6 +13,11 @@ public class LottoStatistics {
     private final Map<Prize, Integer> result = new EnumMap<>(Prize.class);
     private final double rate;
 
+    /**
+     * 로또 목록과 당첨 번호를 받아 통계 정보를 계산합니다.
+     * @param lottos 구매한 로또 목록
+     * @param winningNumbers 당첨 번호 및 보너스 번호 정보
+     */
     public LottoStatistics(List<Lotto> lottos, WinningNumbers winningNumbers) {
         initializeResult();
         int totalPrize = 0;
@@ -42,6 +48,11 @@ public class LottoStatistics {
         return count;
     }
 
+    /**
+     * 특정 등수의 당첨 개수를 반환합니다.
+     * @param prize 조회할 등수
+     * @return 해당 등수의 당첨 개수
+     */
     public int getCount(Prize prize) {
         return result.getOrDefault(prize, 0);
     }
